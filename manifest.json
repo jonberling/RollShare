@@ -11,19 +11,29 @@
         "*://app.roll20.net/editor/*"
     ],
     "background": {
-		"persistent": false,
-		"scripts": ["src/background.js"]
-	},
+        "persistent": false,
+        "scripts": [
+            "src/background.js"
+        ]
+    },
     "content_scripts": [
         {
-            "matches": ["*://www.dndbeyond.com/profile/*/characters/*"],
+            "matches": [
+                "*://www.dndbeyond.com/profile/*/characters/*"
+            ],
             "run_at": "document_idle",
-            "js": ["src/ddb_roll_send.js"]
+            "js": [
+                "src/ddb_roll_send.js"
+            ]
         },
         {
-            "matches": ["*://app.roll20.net/editor/*"],
+            "matches": [
+                "*://app.roll20.net/editor/*"
+            ],
             "run_at": "document_idle",
-            "js": ["src/r20_roll_receive.js"]
+            "js": [
+                "src/r20_roll_receive.js"
+            ]
         }
     ],
     "browser_action": {

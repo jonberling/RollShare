@@ -1,0 +1,27 @@
+{
+    "name": "RollShare",
+    "version": "1.0",
+    "description": "Share your D&D dice rolls online",
+    "manifest_version": 2,
+    "permissions": ["tabs"],
+    "background": {
+		"persistent": false,
+		"scripts": ["src/background.js"]
+	},
+    "content_scripts": [
+        {
+            "matches": ["*://www.dndbeyond.com/profile/*/characters/*"],
+            "run_at": "document_idle",
+            "js": ["src/ddb_roll_send.js"]
+        },
+        {
+            "matches": ["*://app.roll20.net/editor/*"],
+            "run_at": "document_idle",
+            "js": ["src/r20_roll_receive.js"]
+        }
+    ],
+    "browser_action": {
+        "default_popup": "src/popup.html",
+        "default_title": "RollShare"
+    }
+}

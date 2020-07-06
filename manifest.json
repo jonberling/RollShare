@@ -3,6 +3,9 @@
     "version": "1.0",
     "description": "Share your D&D dice rolls online",
     "manifest_version": 2,
+    "icons": {
+        "128": "icon/RollShareIcon.png"
+    },
     "permissions": ["tabs"],
     "background": {
 		"persistent": false,

@@ -6,7 +6,10 @@
     "icons": {
         "128": "icon/RollShareIcon.png"
     },
-    "permissions": ["tabs"],
+    "permissions": [
+        "*://www.dndbeyond.com/profile/*/characters/*",
+        "*://app.roll20.net/editor/*"
+    ],
     "background": {
 		"persistent": false,
 		"scripts": ["src/background.js"]

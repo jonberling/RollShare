@@ -1,7 +1,6 @@
-import { RollResult, RollType, CriticalTag } from "/src/roll_types.js";
-
-const assert = chai.assert;
-const expect = chai.expect;
+/**
+ * Tests for roll_types.js
+ */
 
 describe('RollResult', function () {
   describe('#constructor()', function () {
@@ -27,17 +26,17 @@ describe('CriticalTag', function () {
   });
 });
 
-describe('RollType', function () {
+describe('AdvantageTag', function () {
   describe('#basic()', function () {
     it('has labels', function () {
-      let roll_type = RollType.advantage;
-      expect(roll_type).to.be.ok;
+      let roll_type = AdvantageTag.advantage;
+      expect(roll_type).to.equal(AdvantageTag.advantage);
 
-      roll_type = RollType.disadvantage;
-      expect(roll_type).to.be.ok;
+      roll_type = AdvantageTag.disadvantage;
+      expect(roll_type).to.equal(AdvantageTag.disadvantage);
 
-      roll_type = RollType.regular;
-      expect(roll_type).to.be.ok;
+      roll_type = AdvantageTag.none;
+      expect(roll_type).to.equal(AdvantageTag.none);
     });
   });
 });

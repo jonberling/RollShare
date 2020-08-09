@@ -37,25 +37,25 @@ function handleMessage(message) {
   console.log(message);
   switch (message.detail) {
     case "custom":
-      publishCustomRoll(message.result, message.notation, message.breakdown, message.critical);
+      publishCustomRoll(message.total, message.notation, message.breakdown, message.critical);
       break;
     case "Initiative":
-      publishInitiativeRoll(message.result, message.notation, message.breakdown, message.critical);
+      publishInitiativeRoll(message.total, message.notation, message.breakdown, message.critical);
       break;
     default:
-      publishRoll(message.detail, message.type, message.result, message.notation, message.breakdown, message.critical);
+      publishRoll(message.detail, message.type, message.total, message.notation, message.breakdown, message.critical);
   }
 }
 
 /**
  * Create a Roll20 roll string using [[]] notation
- * @param {(string|number)} result roll result, including all dice rolls and bonuses
+ * @param {(string|number)} total roll total, including all dice rolls and bonuses
  * @param {string} notation e.g. 1d20+3
  * @param {string} breakdown breakdown of all rolls and bonuses. e.g. 17+2
  * @param {string} [tag] optional roll20 tag
  */
-function createRollString(result, notation, breakdown, tag = "") {
-  return `[[ ${result} [${notation}] = ${breakdown} ${tag}]] = ${breakdown}`;
+function createRollString(total, notation, breakdown, tag = "") {
+  return `[[ ${total} [${notation}] = ${breakdown} ${tag}]] = ${breakdown}`;
 }
 
 /**
@@ -74,14 +74,14 @@ function createCritString(critical) {
 
 /**
  * Publish a custom roll on Roll20
- * @param {(string|number)} result roll result, including all dice rolls and bonuses
+ * @param {(string|number)} total roll total, including all dice rolls and bonuses
  * @param {string} notation e.g. 1d20+3
  * @param {string} breakdown breakdown of all rolls and bonuses. e.g. 17+2
  * @param {string} critical string containing critical success/failure information
  */
-function publishCustomRoll(result, notation, breakdown, critical) {
+function publishCustomRoll(total, notation, breakdown, critical) {
   const critString = createCritString(critical);
-  const rollString = createRollString(result, notation, breakdown);
+  const rollString = createRollString(total, notation, breakdown);
 
   const roll_template = `&{template:default} {{name=Rolling ${notation}}} {{Roll=${rollString}}} ${critString}`
   clickButton(roll_template);
@@ -89,14 +89,14 @@ function publishCustomRoll(result, notation, breakdown, critical) {
 
 /**
  * Publish an initiative roll to Roll20
- * @param {(string|number)} result roll result, including all dice rolls and bonuses
+ * @param {(string|number)} total roll total, including all dice rolls and bonuses
  * @param {string} notation e.g. 1d20+3
  * @param {string} breakdown breakdown of all rolls and bonuses. e.g. 17+2
  * @param {string} critical string containing critical success/failure information
  */
-function publishInitiativeRoll(result, notation, breakdown, critical) {
+function publishInitiativeRoll(total, notation, breakdown, critical) {
   const critString = createCritString(critical);
-  const rollString = createRollString(result, notation, breakdown, "&{tracker}");
+  const rollString = createRollString(total, notation, breakdown, "&{tracker}");
 
   const roll_template = `&{template:default} {{name=Initiative}} {{Roll=${rollString}}} ${critString}`
   clickButton(roll_template);
@@ -106,14 +106,14 @@ function publishInitiativeRoll(result, notation, breakdown, critical) {
  * Publish a roll to Roll20
  * @param {string} name
  * @param {string} type
- * @param {(string|number)} result roll result, including all dice rolls and bonuses
+ * @param {(string|number)} total roll total, including all dice rolls and bonuses
  * @param {string} notation e.g. 1d20+3
  * @param {string} breakdown breakdown of all rolls and bonuses. e.g. 17+2
  * @param {string} critical string containing critical success/failure information
  */
-function publishRoll(name, type, result, notation, breakdown, critical) {
+function publishRoll(name, type, total, notation, breakdown, critical) {
   const critString = createCritString(critical);
-  const rollString = createRollString(result, notation, breakdown);
+  const rollString = createRollString(total, notation, breakdown);
 
   const roll_template = `&{template:default} {{name=${name}: ${type}}} {{Roll=${rollString}}} ${critString}`
   clickButton(roll_template);
